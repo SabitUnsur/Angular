@@ -28,6 +28,7 @@ import { RouterOutlet } from '@angular/router';
     </div>
 
     <hr>
+    
     <div>
       <h2>Sonuç</h2>
       <p>{{result}}</p>
@@ -66,6 +67,8 @@ export class AppComponent {
     const taksitTutari : number = (this.krediTutari / this.taksitSayisi)*1.29;
     let toplamGeriOdeme : number = taksitTutari * this.taksitSayisi;
     this.result = `Aylık Taksit Tutarı: ${taksitTutari} Toplam Geri Ödeme: ${toplamGeriOdeme}`;
+
+    //ODEME PLANI HESAPLAMA
 
     this.odemePlani = [];
     for (let i = 0; i < this.taksitSayisi; i++) {
