@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the '6.Directive' title`, () => {
+  it(`should have the '10.Service-Management' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('6.Directive');
+    expect(app.title).toEqual('10.Service-Management');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, 6.Directive');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, 10.Service-Management');
   });
 });
