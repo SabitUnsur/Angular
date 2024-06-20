@@ -9,7 +9,10 @@ export class GnericHttpServiceService {
 
   apiUrl:string = 'https://jsonplaceholder.typicode.com/';
 
-  constructor(private _http: HttpClient, private _errorService:ErrorService) { }
+  constructor(
+    private _http: HttpClient, 
+    private _errorService:ErrorService) 
+    { }
 
   get(api:string,callback:(res:any) => void){
 
@@ -19,7 +22,7 @@ export class GnericHttpServiceService {
       }
     }
 
-    this._http.get(this.apiUrl + api,headers).subscribe({
+    this._http.get(this.apiUrl + api).subscribe({
       next: (res:any) => {
         callback(res);
       },
@@ -35,9 +38,9 @@ export class GnericHttpServiceService {
         "authorizaton": localStorage.getItem("token")
       }
     }
-   this._http.post(this.apiUrl+api,model,headers).subscribe({
+   this._http.post(this.apiUrl+api,model).subscribe({
       next: (res:any) => {
-        callback(res); //bu fonksiyonu çağıran yerdeki callback fonksiyonunu çalıştırır.
+        callback(res); 
       },
       error: (error:HttpErrorResponse) => {
         this._errorService.errorHandle(error);

@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AboutComponent } from './about/about.component';
+//import { AboutComponent } from './about/about.component';
 
 
 
 @NgModule({
   declarations: [
-    AboutComponent
+    //AboutComponent
   ],
   imports: [
     CommonModule
   ],
-  exports: [ AboutComponent ]
+  exports: [ /*AboutComponent*/ ]
 })
 export class MyModule { }

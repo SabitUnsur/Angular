@@ -13,12 +13,12 @@ export class AppService {
     private _errorService: ErrorService
   ) { }
 
-  get(callback:(res:any) => void){
+  get(callback:(res:any) => void){ 
     this._http.get('todos',res=>callback(res)); 
   }
 
   post(model: any,callback:(res:any) => void) {
-    this._http.post('posts',model,res=>callback(res));
+    this._http.post('posts',model,res=>callback(res)); 
   }
 
   // get() {

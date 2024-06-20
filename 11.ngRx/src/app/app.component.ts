@@ -2,14 +2,15 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { MyCounterComponent } from './my-counter/my-counter.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,MyCounterComponent],
   template: `
-      <app-my-counter></app-my-counter>
-      <h1>{{count$ | async}}</h1>
+      <app-my-counter></app-my-counter> 
+      <!-- <h1>{{count$ | async}}</h1> -->
       <h1>{{count}}</h1>
   `
 })
