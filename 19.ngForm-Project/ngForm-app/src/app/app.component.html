@@ -1,0 +1,71 @@
+<h1>NgForm Personel Project</h1>
+<div>
+  <form *ngIf="!isUpdateFormActive" #addForm="ngForm" (ngSubmit)="save(addForm)" autocomplete="off">
+    <div>
+      Personel Adı
+      <input name="name" [(ngModel)]="addModel.name" required minlength="3"/>
+    </div>
+    <div>
+      Personel Bölümü
+      <select name="profession"  [(ngModel)]="addModel.profession" required>
+        <option>Yazılım</option>
+        <option>Donanım</option>
+        <option>İnsan Kaynakları</option>
+        <option>Muhasebe</option>
+      </select>
+    </div>
+    <div>
+      İşe Giriş Tarihi
+      <input  [(ngModel)]="addModel.startingDate" name="startingDate" required type="date"/>
+    </div>
+    <div>
+      <button [disabled]="!addForm.valid">Kaydet</button>
+    </div>
+  </form>
+  <form *ngIf="isUpdateFormActive" #updateForm="ngForm" (ngSubmit)="update(updateForm)" autocomplete="off">
+    <div>
+      Personel Adı
+      <input name="updateName" [(ngModel)]="updateModel.name" required minlength="3"/>
+    </div>
+    <div>
+      Personel Bölümü
+      <select name="updateProfession"  [(ngModel)]="updateModel.profession" required>
+        <option>Yazılım</option>
+        <option>Donanım</option>
+        <option>İnsan Kaynakları</option>
+        <option>Muhasebe</option>
+      </select>
+    </div>
+    <div>
+      İşe Giriş Tarihi
+      <input  [(ngModel)]="updateModel.startingDate" name="updateStartingDate" required type="date"/>
+    </div>
+    <div>
+      <button [disabled]="!updateForm.valid">Güncelle</button>
+      <button type="button" (click)="cancel()">İptal</button>
+    </div>
+  </form>
+  <hr>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Personel Adı</th>
+        <th>Personel Bölümü</th>
+        <th>İşe Giriş Tarihi</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of employees let i=index">
+          <td>{{i+1}}</td>
+          <td>{{e.name}}</td>
+          <td>{{e.profession}}</td>
+          <td>{{e.startingDate | date:'dd.MM.yyyy'}}</td>
+          <td>
+            <button (click)="get(e,i)">Güncelle</button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
