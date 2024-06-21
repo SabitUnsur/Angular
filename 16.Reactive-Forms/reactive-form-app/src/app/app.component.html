@@ -1,0 +1,16 @@
+<h1>Reactive Forms</h1>
+
+<form [formGroup]="addForm">
+  <div>
+    Email 
+    <input formControlName="email" type="text">
+  </div>
+
+  <div>
+    Password
+    <input formControlName="password" type="password">
+  </div>
+
+  <button [disabled]="!addForm.valid" (click)="add()">Submit</button>
+
+</form>
