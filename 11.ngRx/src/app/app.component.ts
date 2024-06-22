@@ -20,7 +20,7 @@ export class AppComponent {
   count:number=0;
 
   constructor(private store: Store<{ count: number }>) {
-    this.count$ = store.select('count');
+    this.count$ = store.select('count'); //burdaki count store/index.ts de tanımladığımız count keyi ile aynı olmalı
     this.store.select("count").subscribe((res) => {
       this.count = res;
     }); //2. bir yöntem
