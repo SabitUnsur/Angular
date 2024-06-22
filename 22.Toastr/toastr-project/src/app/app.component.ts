@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterOutlet } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,BrowserModule],
+  imports: [RouterOutlet,BrowserAnimationsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
