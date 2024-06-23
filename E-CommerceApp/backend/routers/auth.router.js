@@ -39,7 +39,6 @@ router.post('/login', async(req,res) =>{
     try {
        const {email,password} = req.body;
        const hashedPassword = bcrypt.hashSync(password, 8);
-       console.log(hashedPassword)
        
        let user = await User.findOne({email:email});
          if(user == null){
