@@ -38,14 +38,13 @@ router.post('/register', async(req,res) =>{
 router.post('/login', async(req,res) =>{
     try {
        const {email,password} = req.body;
-       const hashedPassword = bcrypt.hashSync(password, 8);
-       
+
        let user = await User.findOne({email:email});
          if(user == null){
               res.status(404).send({message:"User not found."});
          }
          else{
-              const token = jwt.sign({id:user._id}, process.env.SECRET_KEY, tokenOptions);
+              const token = jwt.sign({id:user._id}, process.env.SECRET_KEY, tokenOptions); 
               let json = {user:user,token:token};
               res.status(200).json(json);
          }
@@ -55,8 +54,6 @@ router.post('/login', async(req,res) =>{
     }
 })
 
-
-
 module.exports = {
-    auth:router
+    auth:router 
 };

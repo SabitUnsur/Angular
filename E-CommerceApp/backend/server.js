@@ -4,16 +4,18 @@ const db = require('./db/index');
 const configs = require('./configs/index')
 const routerConsts = require('./consts/index');
 const router = require('./routers/index');
+const middleware = require('./middlewares/index');
 
 app.use(express.json());
 
 const cors = require('cors');
 app.use(cors());
 
+
 const PORT = process.env.PORT || 5000;
 configs.serverConfig.initialServerConfig(); //bu kod satırı, serverConfig.js dosyasındaki initialServerConfig fonksiyonunu çalıştırır. Bu fonksiyon, .env dosyasındaki değişkenleri process.env'e ekler. Bu sayede .env dosyasındaki değişkenlere erişebiliriz.
 
-
+app.use(middleware.authMiddleware);
 app.use(`${process.env.APP_PREFIX}${routerConsts.routerPrefix.AUTH}`,router.authRouter.auth)
 
 
