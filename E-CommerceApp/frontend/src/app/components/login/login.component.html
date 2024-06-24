@@ -2,34 +2,47 @@
     <div class="col-md-3">
         <div class="card">
             <div class="card-header">
-                <h1 class="text-center">Login Page</h1>
-                <div class="card-body">
-                    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" autocomplete="off">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input class="form-control" type="email" id="email" name="email"
+                <h1 class="text-center">Giriş Sayfası</h1>
+            </div>
+            <div class="card-body">
+                <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" autocomplete="off">
+                    <div class="form-group">
+                        <label for="email">Mail Adresi</label>
+                        <input 
+                            class="form-control" 
+                            type="email" 
+                            ngModel 
+                            name="email"
+                            id="email" 
                             required
+                            email="true"
+                            minlength="3"
                             #email
                             [appValid]="email.validity.valid">
-                            <div class="invalid-feedback">
-                                Please enter a valid email.
-                            </div>
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="password">Password</label>
-                            <input class="form-control" type="password" id="password" name="password" required
-                            #password
-                            [appValid]="password.validity.valid">
-                            <div class="invalid-feedback">
-                                Please enter a valid password.
-                            </div>
-                        </div>
-                        <div class="form-group mt-2">
-                            <button [disabled]="!loginForm.valid" class="btn btn-primary-outline w-100">Login</button>
-                            <a routerLink="/register" style="float: right;">Register</a>
-                        </div>
-                    </form>
-                </div>
+                        <div class="invalid-feedback">
+                            Provide a valid email.
+                        </div>  
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="password">Şifre</label>
+                        <input
+                          class="form-control"
+                          type="password"
+                          ngModel
+                          name="password"
+                          id="password"
+                          #password
+                          required
+                          [appValid]="password.validity.valid">
+                          <div class="invalid-feedback">
+                            Provide a valid password.
+                          </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <button [disabled]="!loginForm.valid" class="btn btn-outline-primary w-100">Giriş Yap</button>
+                        <a routerLink="/register" style="float: right;">Kayıt Ol</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

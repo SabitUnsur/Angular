@@ -23,13 +23,13 @@ export class GenericHttpService {
         this._spinner.hide();
       },
       error:(err:HttpErrorResponse)=>{
-        console.log(err)
         this._toastr.error(err.error.message)
+        this._spinner.hide();
       }
     });
   }
 
-  post<T>(url: string, model: T, callBack: (res: T) => void) {
+  post<T>(url: string, model: any, callBack: (res: T) => void) {
     this._spinner.show();
     this._http.post<T>(`${this.api}/${url}`, model,{}).subscribe({
       next: (res: T) => {
@@ -37,8 +37,8 @@ export class GenericHttpService {
         this._spinner.hide();
       },
       error: (err: HttpErrorResponse) => { 
-        console.log(err)
         this._toastr.error(err.error.message)
+        this._spinner.hide();
       }
     });
   }
