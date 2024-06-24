@@ -1,1 +1,61 @@
-<p>register works!</p>
+<div class="d-flex justify-content-center" style="margin: top 75px; ;">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="text-center">Register Form</h4>
+            <div class="card-body">
+                <form autocomplete="off" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text"
+                         class="form-control" 
+                         id="name" 
+                         name="name"
+                         ngModel 
+                         #name 
+                         [appValid]="name.validity.valid"
+                         required 
+                         minlength="3">
+                         <div class="invalid-feedback">
+                            Username must be at least 3 characters long.
+                         </div>
+                    </div>   
+                    <div class="form-group mt-2">
+                        <label for="email">Mail</label>
+                        <input type="text"
+                         class="form-control" 
+                         id="email" 
+                         name="email"
+                         ngModel 
+                         #email 
+                         [appValid]="email.validity.valid"
+                         required 
+                         minlength="3">
+                         <div class="invalid-feedback">
+                            Please enter a valid email.
+                         </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="password">Password</label>
+                        <input type="password"
+                         class="form-control" 
+                         id="password" 
+                         name="password"
+                         ngModel 
+                         #password 
+                         [appValid]="password.validity.valid"
+                         required >
+                         <div class="invalid-feedback">
+                            Please enter a valid password.
+                         </div>
+                    </div>  
+                    <div class="form-group mt-2">
+                        <button [disabled]="!registerForm.valid" class="btn btn-outline-success w-100">Register</button>
+                        <a routerLink="/login" style="float: right;">Login</a>
+                    </div> 
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

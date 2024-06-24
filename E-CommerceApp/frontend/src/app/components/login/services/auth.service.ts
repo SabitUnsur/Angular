@@ -13,6 +13,6 @@ export class AuthService {
   ) { }
 
   login(model:LoginModel,callBack:(res:LoginResponseModel)=>void){
-    this._http.post<LoginResponseModel>('auth/login',model,res=>callBack(res))
+    this._http.post<LoginResponseModel>('auth/login',model,res=>callBack(res)) //LoginResponseModel yazma sebebimiz,dönen cevap,LoginResponseModel tipinde olacak
   }
 }

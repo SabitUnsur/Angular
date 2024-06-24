@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SharedModule } from '../../common/shared/shared.module';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -9,5 +10,8 @@ import { SharedModule } from '../../common/shared/shared.module';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  
+ register(form:NgForm){
 
+ }
 }
