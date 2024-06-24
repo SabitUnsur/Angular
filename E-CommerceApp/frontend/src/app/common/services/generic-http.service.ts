@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -10,12 +11,17 @@ export class GenericHttpService {
 
   constructor(
     private _http: HttpClient,
+    private _spinner:NgxSpinnerService,
     private _toastr: ToastrService
   ) { }
 
   get<T>(url:string,callBack:(res:T)=>void){
+    this._spinner.show();
     this._http.get<T>(`${this.api}/${url}`).subscribe({
-      next:(res:T)=>callBack(res),
+      next:(res:T)=>{
+        callBack(res);
+        this._spinner.hide();
+      },
       error:(err:HttpErrorResponse)=>{
         console.log(err)
         this._toastr.error(err.error.message)
@@ -24,8 +30,12 @@ export class GenericHttpService {
   }
 
   post<T>(url: string, model: T, callBack: (res: T) => void) {
+    this._spinner.show();
     this._http.post<T>(`${this.api}/${url}`, model,{}).subscribe({
-      next: (res: T) => callBack(res),
+      next: (res: T) => {
+        callBack(res);
+        this._spinner.hide();
+      },
       error: (err: HttpErrorResponse) => { 
         console.log(err)
         this._toastr.error(err.error.message)

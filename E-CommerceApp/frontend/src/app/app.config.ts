@@ -8,6 +8,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 export const appConfig: ApplicationConfig = {
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
       closeButton: true,
       progressBar: true
     }),
+    NgxSpinnerModule,
     BrowserModule,
     CommonModule,
   ]
