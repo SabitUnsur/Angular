@@ -11,7 +11,7 @@
                          class="form-control" 
                          id="name" 
                          name="name"
-                         ngModel 
+                        [(ngModel)]="model.name"
                          #name 
                          [appValid]="name.validity.valid"
                          required 
@@ -26,7 +26,7 @@
                          class="form-control" 
                          id="email" 
                          name="email"
-                         ngModel 
+                         [(ngModel)]="model.email" 
                          #email 
                          [appValid]="email.validity.valid"
                          required 
@@ -41,7 +41,7 @@
                          class="form-control" 
                          id="password" 
                          name="password"
-                         ngModel 
+                         [(ngModel)]="model.password" 
                          #password 
                          [appValid]="password.validity.valid"
                          required >
