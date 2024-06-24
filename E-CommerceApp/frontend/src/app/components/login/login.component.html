@@ -4,14 +4,25 @@
             <div class="card-header">
                 <h1 class="text-center">Login Page</h1>
                 <div class="card-body">
-                    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+                    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" autocomplete="off">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input class="form-control" type="email" id="email"  name="email" required>
+                            <input class="form-control" type="email" id="email" name="email"
+                            required
+                            #email
+                            [appValid]="email.validity.valid">
+                            <div class="invalid-feedback">
+                                Please enter a valid email.
+                            </div>
                         </div>
                         <div class="form-group mt-2">
                             <label for="password">Password</label>
-                            <input class="form-control" type="password" id="password" name="password" required>
+                            <input class="form-control" type="password" id="password" name="password" required
+                            #password
+                            [appValid]="password.validity.valid">
+                            <div class="invalid-feedback">
+                                Please enter a valid password.
+                            </div>
                         </div>
                         <div class="form-group mt-2">
                             <button [disabled]="!loginForm.valid" class="btn btn-primary-outline w-100">Login</button>
