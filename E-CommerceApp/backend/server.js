@@ -17,7 +17,7 @@ configs.serverConfig.initialServerConfig(); //bu kod satırı, serverConfig.js d
 
 
 app.use(`${process.env.APP_PREFIX}${routerConsts.routerPrefix.AUTH}`,router.authRouter.auth)
-
+app.use(`${process.env.APP_PREFIX}${routerConsts.routerPrefix.CATEGORY}`,router.categoryRouter.category)
 
 db.mongooseConnection.
 connectToMongoDB(process.env.MONGODB_HOST, process.env.MONGODB_PORT,

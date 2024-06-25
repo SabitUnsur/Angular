@@ -57,5 +57,5 @@ router.post("/login",async (req,res)=>{
 });
 
 module.exports = {
-    auth:router 
+    auth:router  //auth.router.js içerisindeki tüm fonksiyonları dışarıya açar
 };
