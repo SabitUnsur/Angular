@@ -17,11 +17,11 @@
     </div>
     <div class="card-body">
         <div class="form-group">
-            <button class="btn btn-outline-primary">
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">
                 <i class="fa fa-plus"></i>
             </button>
             <div class="col-md-4" style="float: right;">
-                <input type="search"  class="form-control" placeholder="Search Category">
+                <input type="search" class="form-control" placeholder="Search Category">
             </div>
         </div>
         <div class="form-group mt-2">
@@ -34,11 +34,52 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-
+                    <tr *ngFor="let category of categories let index = index ">
+                        <td>{{index + 1}}</td>
+                        <td>{{category.name}}</td>
+                        <td>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm mx-1">
+                                <i class="fa fa-trash"></i>
+                            </button>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addModalLabel">Add Category</h1>
+                <button type="button" id="addModalCloseBtn" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form autocomplete="off" #addForm="ngForm" (ngSubmit)="add(addForm)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Category Name</label>
+                        <input
+                        type="text"
+                        class="form-control"
+                        ngModel
+                        name="name"
+                        id="name"
+                        #name
+                        [appValid]="name.validity.valid"
+                        required
+                        minlength="3">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button> 
+                </div>
+            </form>
         </div>
     </div>
 </div>
