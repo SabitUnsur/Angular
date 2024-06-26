@@ -21,11 +21,11 @@ export class CategoryService {
   }
 
   update(_id:string,name:string,callBack:(res:MessageResponseModel)=>void){
-    this._http.post<MessageResponseModel>('categories/updateById/${_id}',{name},res=>callBack(res));
+    this._http.update<MessageResponseModel>(`${_id}`,'categories/updateById',{name},res=>callBack(res));
   }
 
   removeById(_id:string,callBack:(res:MessageResponseModel)=>void){
-    this._http.post<MessageResponseModel>('categories/removeById/${_id}',{_id},res=>callBack(res));
+    this._http.delete<MessageResponseModel>(`${_id}`,'categories/removeById',res=>callBack(res));
   }
 }
 

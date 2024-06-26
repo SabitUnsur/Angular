@@ -26,7 +26,7 @@ router.post('/add', async (req, res) => {
 
 router.post("/removeById/:categoryId", async (req, res) => { 
     try {
-        const {categoryId} = req.params.categoryId;
+        const {categoryId} = req.params;
         await Category.findByIdAndDelete(categoryId)
         res.status(200).json({
             message: 'Category deleted successfully'
@@ -38,17 +38,23 @@ router.post("/removeById/:categoryId", async (req, res) => {
 })
 
 router.post("/updateById/:categoryId", async (req, res) => {
-    const {categoryId} = req.params.categoryId;
-    const {name} = req.body;
+    const { categoryId } = req.params;
+    const { name } = req.body;
+
     try {
-        await Category.findByIdAndUpdate(categoryId, {name:name})
-        res.status(200).json({
+        const existingCategory = await Category.findOne({ name: name });
+
+        if (existingCategory && existingCategory._id.toString() !== categoryId) {
+            return res.status(400).json({ message: "Category with this name already exists" });
+        }
+        await Category.findByIdAndUpdate(categoryId, { name: name });
+        return res.status(200).json({
             message: 'Category updated successfully'
-          });
+        });
     } catch (error) {
-        res.status(500).json({message:error.message})
+        return res.status(500).json({ message: error.message });
     }
-})
+});
 
 router.get("/", async (req, res) => {
     try {

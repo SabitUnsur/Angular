@@ -9,6 +9,7 @@ import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 export const appConfig: ApplicationConfig = {
@@ -24,5 +25,6 @@ export const appConfig: ApplicationConfig = {
     NgxSpinnerModule,
     BrowserModule,
     CommonModule,
+    SweetAlert2Module
   ]
 };
