@@ -71,6 +71,5 @@ export class GenericHttpService {
       }
     });
   }
-  
 }
 
