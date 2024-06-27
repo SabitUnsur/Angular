@@ -3,8 +3,9 @@ const router = express.Router();
 const Product = require('../models/product');
 const uuid = require('uuid');
 const fs = require('fs');
+const services = require('../services/index');
 
-router.post('/add',async(req,res)=>{
+router.post('/add',services.fileService.array("images"),async(req,res)=>{
     try {
         const{ name, stock, price, categories} = req.body;
         const product = new Product({
@@ -12,6 +13,7 @@ router.post('/add',async(req,res)=>{
             name,
             stock,
             price,
+            imageUrls:req.files,
             categories
         });
         await product.save();
