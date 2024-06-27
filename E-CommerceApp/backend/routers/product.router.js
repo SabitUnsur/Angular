@@ -8,13 +8,12 @@ const services = require('../services/index');
 router.post('/add',services.fileService.array("images"),async(req,res)=>{
     services.responseService(res,async()=>{
         const {name,price,description} = req.body;
-        const images = req.files.map(file=>file.filename);
         const product = new Product({
             _id:uuid.v4(),
             name,
             price,
             description,
-            images
+            imageUrls:req.files
         });
         await product.save();
         res.json({message:"Product added successfully"});
@@ -86,5 +85,32 @@ router.get('/getByCategoryId/:categoryId',async(req,res)=>{
     services.responseService(res,async()=>{
         const products = await Product.findOne(_id).populate('categories');
         res.json(products);
+    })
+})
+
+
+router.post('/updateById/:productId',services.fileService.array("images"),async(req,res)=>{
+    services.fileService(res,async()=>{
+        const {_id} = req.params;
+        const {name,stock,price,categories,isActive} = req.body;
+        let product = await Product.findById(_id);
+        product.imageUrls.forEach(image=>{
+            fs.unlink(image.path,()=>{});
+        }) 
+
+        let imageUrls=[...product.imageUrls,...req.files];
+
+        product={
+            _id:_id,
+            name:name.toUpperCase(),
+            stock:stock,
+            price:price,
+            categories:categories,
+            isActive:isActive,
+            imageUrls:imageUrls
+        }
+
+        await product.save();
+        res.json({message:"Product updated successfully"});
     })
 })
