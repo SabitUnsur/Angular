@@ -70,6 +70,21 @@ router.get('/',async(req,res)=>{
       res.status(200).json(model);
 
     })
+})
 
 
+router.get('/getById/:productId',async(req,res)=>{
+    services.responseService(res,async()=>{
+        const {_id} = req.params;
+        const product = await Product.findById(_id);
+        res.json(product);
+    })
+})
+
+router.get('/getByCategoryId/:categoryId',async(req,res)=>{
+    const {_id} = req.params;
+    services.responseService(res,async()=>{
+        const products = await Product.findOne(_id).populate('categories');
+        res.json(products);
+    })
 })
