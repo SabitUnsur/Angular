@@ -19,3 +19,15 @@ router.post('/add',services.fileService.array("images"),async(req,res)=>{
         res.json({message:"Product added successfully"});
     })
 })
+
+router.post('/removeById/:productId',async(req,res)=>{
+    services.responseService(res,async()=>{
+        const {_id} = req.params;
+        const productToDelete = await Product.findById(_id);
+        productToDelete.images.forEach(image=>{
+            fs.unlink(`uploads/${image}`,()=>{}); 
+        })
+        await Product.findByIdAndDelete(productToDelete._id);
+        res.json({message:"Product deleted successfully"});
+    })
+})
