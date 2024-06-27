@@ -10,6 +10,7 @@ router.post('/add',services.fileService.array("images"),async(req,res)=>{
         const {name,price,description} = req.body;
         const images = req.files.map(file=>file.filename);
         const product = new Product({
+            _id:uuid.v4(),
             name,
             price,
             description,
@@ -30,4 +31,45 @@ router.post('/removeById/:productId',async(req,res)=>{
         await Product.findByIdAndDelete(productToDelete._id);
         res.json({message:"Product deleted successfully"});
     })
+})
+
+router.get('/',async(req,res)=>{
+    services.responseService(res,async()=>{
+      const {pageNumber,pageSize,search} = req.body;
+      let productCount = await Product.find({
+        $or:[ 
+            {
+                name:{ $regex:search,$options:'i'}
+            }
+        ]
+      }).count();
+      
+      let products = await Product.find({
+        $or:[ 
+            {
+                name:{ $regex:search,$options:'i'}
+            }
+        ]
+      }).sort({name:1})
+      .populate('categories')
+      .skip((pageNumber-1)*pageSize) //kaçıncı veriden başlayacağını belirler
+      .limit(pageSize); //kaç tane veri çekileceğini belirler
+
+
+      let totalPageCount=Math.ceil(productCount/pageSize);
+
+      let model ={
+        datas:products,
+        pageNumber:pageNumber,
+        pageSize:pageSize,
+        totalPageCount:totalPageCount,
+        isFirstPage:pageNumber==1 ? true:false,
+        isLastPage:totalPageCount==pageNumber ? true:false
+      }
+
+      res.status(200).json(model);
+
+    })
+
+
 })
