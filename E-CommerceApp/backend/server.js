@@ -9,7 +9,8 @@ const router = require('./routers/index');
 app.use(express.json());
 
 const cors = require('cors');
-app.use(cors());
+app.use(cors()); //cors : farklı domainlerden gelen istekleri kabul etmek için kullanılır.
+app.use('/uploads',express.static(path.join(__dirname,'uploads'))); //uploads klasörünü dışarıya açar. Bu sayede frontend tarafında bu klasördeki dosyalara erişebiliriz.
 
 
 const PORT = process.env.PORT || 5000;
@@ -18,6 +19,7 @@ configs.serverConfig.initialServerConfig(); //bu kod satırı, serverConfig.js d
 
 app.use(`${process.env.APP_PREFIX}${routerConsts.routerPrefix.AUTH}`,router.authRouter.auth)
 app.use(`${process.env.APP_PREFIX}${routerConsts.routerPrefix.CATEGORY}`,router.categoryRouter.category)
+app.use(`${process.env.APP_PREFIX}${routerConsts.routerPrefix.PRODUCT}`,router.productRouter.product)
 
 db.mongooseConnection.
 connectToMongoDB(process.env.MONGODB_HOST, process.env.MONGODB_PORT,

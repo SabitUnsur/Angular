@@ -134,3 +134,8 @@ router.post('/removeImageByProductIdAndIndex/:productId',async(req,res)=>{
 
     })
 })
+
+
+module.exports = {
+    product:router
+};
