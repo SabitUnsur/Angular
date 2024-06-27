@@ -1,31 +1,34 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/product');
+const Category = require('../models/category');
 const uuid = require('uuid');
 const fs = require('fs');
 const services = require('../services/index');
 
-router.post('/add',services.fileService.array("images"),async(req,res)=>{
+router.post('/add',services.fileService.array("images"),async(req,res)=>{ //images keyi ile birden fazla resim yükleyebiliriz
     services.responseService(res,async()=>{
-        const {name,price,description} = req.body;
-        const product = new Product({
-            _id:uuid.v4(),
-            name,
-            price,
-            description,
-            imageUrls:req.files
-        });
-        await product.save();
-        res.json({message:"Product added successfully"});
+        const {name,price,description,stock,categories} = req.body;
+            const product = new Product({
+                _id:uuid.v4(),
+                name:name.toUpperCase(),
+                price:price,
+                description:description,
+                stock:stock,
+                categories:categories,
+                imageUrls:req.files
+            });
+            await product.save();
+            res.json({message:"Product added successfully"});
+        })
     })
-})
-
+    
 router.post('/removeById/:productId',async(req,res)=>{
     services.responseService(res,async()=>{
-        const {_id} = req.params;
-        const productToDelete = await Product.findById(_id);
-        productToDelete.images.forEach(image=>{
-            fs.unlink(`uploads/${image}`,()=>{}); 
+        const {productId} = req.params;
+        const productToDelete = await Product.findById(productId);
+        productToDelete.imageUrls.forEach(image=>{
+            fs.unlink(image.path,()=>{}); 
         })
         await Product.findByIdAndDelete(productToDelete._id);
         res.json({message:"Product deleted successfully"});
@@ -74,16 +77,16 @@ router.get('/',async(req,res)=>{
 
 router.get('/getById/:productId',async(req,res)=>{
     services.responseService(res,async()=>{
-        const {_id} = req.params;
-        const product = await Product.findById(_id);
+        const {productId} = req.params;
+        const product = await Product.findById(productId);
         res.json(product);
     })
 })
 
 router.get('/getByCategoryId/:categoryId',async(req,res)=>{
-    const {_id} = req.params;
+    const {productId} = req.params;
     services.responseService(res,async()=>{
-        const products = await Product.findOne(_id).populate('categories');
+        const products = await Product.findOne(productId).populate('categories');
         res.json(products);
     })
 })
@@ -91,9 +94,9 @@ router.get('/getByCategoryId/:categoryId',async(req,res)=>{
 
 router.post('/updateById/:productId',services.fileService.array("images"),async(req,res)=>{
     services.fileService(res,async()=>{
-        const {_id} = req.params;
+        const {productId} = req.params;
         const {name,stock,price,categories,isActive} = req.body;
-        let product = await Product.findById(_id);
+        let product = await Product.findById(productId);
         product.imageUrls.forEach(image=>{
             fs.unlink(image.path,()=>{});
         }) 
@@ -101,7 +104,7 @@ router.post('/updateById/:productId',services.fileService.array("images"),async(
         let imageUrls=[...product.imageUrls,...req.files];
 
         product={
-            _id:_id,
+            _id:productId,
             name:name.toUpperCase(),
             stock:stock,
             price:price,
@@ -119,9 +122,9 @@ router.post('/updateById/:productId',services.fileService.array("images"),async(
 //Resim Sil
 router.post('/removeImageByProductIdAndIndex/:productId',async(req,res)=>{ 
     services.responseService(res,async()=>{
-        const {_id} = req.params;
+        const {productId} = req.params;
         const {index} = req.body;
-        let product = await Product.findById(_id);
+        let product = await Product.findById(productId);
         if(product.imageUrls.length==1){
             res.status(400).json({message:"You can't delete the last image"});
         }else{
@@ -134,6 +137,18 @@ router.post('/removeImageByProductIdAndIndex/:productId',async(req,res)=>{
 
     })
 })
+
+router.post('/changeActiveStatusById/:productId',async(req,res)=>{
+    services.responseService(res,async()=>{
+        const {productId} = req.params;
+        let product = await Product.findById(productId);
+        product.isActive = !product.isActive;
+        await product.save();
+        res.status(200).json({message:"Product status changed successfully"});
+    })
+})
+
+
 
 
 module.exports = {

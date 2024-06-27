@@ -4,13 +4,14 @@ const db = require('./db/index');
 const configs = require('./configs/index')
 const routerConsts = require('./consts/index');
 const router = require('./routers/index');
+const path = require('path');
 
 
 app.use(express.json());
 
 const cors = require('cors');
 app.use(cors()); //cors : farklı domainlerden gelen istekleri kabul etmek için kullanılır.
-app.use('/uploads',express.static(path.join(__dirname,'uploads'))); //uploads klasörünü dışarıya açar. Bu sayede frontend tarafında bu klasördeki dosyalara erişebiliriz.
+app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 
 
 const PORT = process.env.PORT || 5000;

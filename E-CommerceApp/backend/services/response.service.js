@@ -5,3 +5,5 @@ const response = async(res,callBack)=>{
         res.status(500).json({message: error.message});
     }
 }
+
+module.exports = response;
