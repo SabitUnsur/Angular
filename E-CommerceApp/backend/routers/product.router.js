@@ -114,3 +114,23 @@ router.post('/updateById/:productId',services.fileService.array("images"),async(
         res.json({message:"Product updated successfully"});
     })
 })
+
+
+//Resim Sil
+router.post('/removeImageByProductIdAndIndex/:productId',async(req,res)=>{ 
+    services.responseService(res,async()=>{
+        const {_id} = req.params;
+        const {index} = req.body;
+        let product = await Product.findById(_id);
+        if(product.imageUrls.length==1){
+            res.status(400).json({message:"You can't delete the last image"});
+        }else{
+            fs.unlink(product.imageUrls[index].path,()=>{});
+            product.imageUrls.splice(index,1); //arrayden indexi sil
+            await product.save();
+            res.json({message:"Image deleted successfully"});
+        }
+      
+
+    })
+})
