@@ -7,6 +7,6 @@ export class ProductModel{
     price:number=0; 
     stock:number=0;
     isActive:boolean=true;
-    createdAt:string='';
-    imageUrl:any[] = []; 
+    createdDate:string='';
+    imageUrls:any[] = []; 
 }

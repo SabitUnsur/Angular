@@ -22,8 +22,8 @@ export class ProductService {
     this._http.update<MessageResponseModel>(_id,'products/update',model,res=>callBack(res))
   }
 
-  getAll(model:RequestModel,callBack:(res:PaginationResultModel<ProductModel>[])=>void){
-    this._http.get<PaginationResultModel<ProductModel>[]>('products/',res=>callBack(res))
+  getAll(model:RequestModel,callBack:(res:PaginationResultModel<ProductModel[]>)=>void){
+    this._http.post<PaginationResultModel<ProductModel[]>>('products/',model,res=>callBack(res))
   }
 
   removeById(_id:string,callBack:(res:MessageResponseModel)=>void){
