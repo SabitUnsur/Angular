@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit{
-  result: PaginationResultModel<ProductModel[]> = new PaginationResultModel<ProductModel[]>();
+  result: PaginationResultModel<ProductModel[]> = new PaginationResultModel<ProductModel[]>(); //bu bizim backendden gelen verileri tuttuğumuz modeldir.
   request: RequestModel = new RequestModel();
   pageNumbers: number[] = [];
   product: ProductModel = new ProductModel();
@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit{
   getAll(pageNumber = 1) {
     this.request.pageNumber = pageNumber;
     this._product.getAll(this.request, res => {
-      this.result = res;
+      this.result = res; 
       this.setPageNumbers();
     })
   }

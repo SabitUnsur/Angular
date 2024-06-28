@@ -1,0 +1,97 @@
+<app-blank title="Add" sectionTitle="Product Add">
+
+    <div class="row center">
+        <div class="col-md-6">
+           <form #addForm="ngForm" (ngSubmit)="add(addForm)">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input 
+                    type="text"
+                    class="form-control" 
+                    id="name"
+                    name="name" 
+                    ngModel
+                    minlength="3"
+                    #name
+                    [appValid]="name.validity.valid"
+                    class="form-control"
+                    required>
+                    <div class="invalid-feedback">
+                        Please enter at least 3 characters.
+                    </div>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="stock">Quantity</label>
+                    <input 
+                    type="text"
+                    class="form-control" 
+                    id="stock"
+                    name="stock"
+                    min="1"
+                    ngModel
+                    #stock
+                    [appValid]="stock.validity.valid"
+                    class="form-control"
+                    required>
+                    <div class="invalid-feedback">
+                        Please enter a valid quantity. 
+                    </div>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="categoriesSelect">Categories</label>
+                    <select 
+                    class="form-control"
+                    name="categoriesSelect"
+                    id="categoriesSelect"
+                    ngModel
+                    multiple
+                    #categoriesSelect>
+                    <option *ngFor="let category of categories" [value]="category._id">
+                        {{category.name}}
+                    </option>
+                    </select>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="price">Price</label>
+                    <input
+                      type="number"
+                      name="price"
+                      id="price"
+                      ngModel
+                      required
+                      #price
+                      min="1"
+                      class="form-control"
+                      [appValid]="price.validity.valid">
+                      <div class="invalid-feedback">
+                            Please enter a valid price.
+                      </div>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="images">Image</label>
+                    <input
+                      type="file"
+                      name="images"
+                      id="images"
+                      ngModel
+                      multiple                     
+                      class="form-control"
+                      (change)="getImages($event)">
+                </div>
+                <hr>
+                <div class="form-group mt-2">
+                    <p>Selected Images</p>
+                    <span (click)="removeImage(image.name, image.size, i)" 
+                    *ngFor="let image of imageUrls let i = index">
+                        <img [src]="image.imageUrl" width="100" class="mx-1">
+                    </span>
+                </div>
+                <div class="form-group mt-2">
+                    <button class="btn btn-primary w-100">
+                        Save
+                    </button>
+                </div>
+           </form>
+        </div>
+    </div>
+</app-blank>

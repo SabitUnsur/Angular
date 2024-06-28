@@ -8,12 +8,11 @@ const services = require('../services/index');
 
 router.post('/add',services.fileService.array("images"),async(req,res)=>{ //images keyi ile birden fazla resim yükleyebiliriz
     services.responseService(res,async()=>{
-        const {name,price,description,stock,categories} = req.body;
+        const {name,price,stock,categories} = req.body;
             const product = new Product({
                 _id:uuid.v4(),
                 name:name.toUpperCase(),
                 price:price,
-                description:description,
                 stock:stock,
                 categories:categories,
                 imageUrls:req.files
@@ -35,7 +34,7 @@ router.post('/removeById/:productId',async(req,res)=>{
     })
 })
 
-router.get('/',async(req,res)=>{
+router.post('/',async(req,res)=>{
     services.responseService(res,async()=>{
       const {pageNumber,pageSize,search} = req.body;
       let productCount = await Product.find({
@@ -68,7 +67,6 @@ router.get('/',async(req,res)=>{
         isFirstPage:pageNumber==1 ? true:false,
         isLastPage:totalPageCount==pageNumber ? true:false
       }
-
       res.status(200).json(model);
 
     })
