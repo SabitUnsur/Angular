@@ -56,8 +56,7 @@ getCategories() {
   let i = this.images.findIndex(x=>x.name == name && x.size == size);
   this.images.splice(i,1);
  }
-
-
+ 
  add(form:NgForm){
   if(form.value["categoriesSelect"].length == 0){ 
     this.toastrService.error("Please select category");
@@ -86,7 +85,7 @@ getCategories() {
         if(res){
           this.toastrService.success(res.message);
           form.reset();
-          this.imageUrls = [];
+          this.imageUrls = []; //resimleri sıfırlamamızın sebebi, resimlerin tekrar tekrar gözükmemesi için
         }
       });
     }
